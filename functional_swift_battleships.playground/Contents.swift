@@ -1,4 +1,5 @@
 //: Playground - noun: a place where people can play
+//: Playground - 模拟最简单的函数响应式
 
 import UIKit
 
@@ -123,6 +124,11 @@ extension Ship {
     }
 }
 
+
+
+
+
+
 ///MARK: 一等函数开始，在Swift中函数是一等值
 
 typealias Region = (Postion) -> Bool
@@ -204,7 +210,7 @@ extension Ship {
 }
 
 
-//其他解决方案
+//更好的解决方案，可通过extension进行拓展
 //struct Region {
 //
 //    let lookup: (Postion) -> Bool
