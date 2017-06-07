@@ -21,7 +21,6 @@ extension Postion{
         
         return sqrt(x * x + y * y) <= range
     }
-    
 }
 
 
@@ -49,7 +48,6 @@ extension Ship {
     }
     
     
-    
     /// 是否由另一搜船位于攻击范围之内（需要在安全范围内）
     ///
     /// - Parameter target: 目标船只
@@ -67,32 +65,33 @@ extension Ship {
 
 extension Ship {
     
-    
     /// 避免敌方过于接近友方船只
     ///
     /// - Parameters:
     ///   - target: 目标船只
     ///   - friendly: 友军
     /// - Returns:
-    func canSafelyEngage(ship target: Ship, friendly: Ship) -> Bool {
-        
-        // 自己距离敌军的距离
-        let dx = target.postion.x - postion.x
-        let dy = target.postion.y - postion.y
-        let targetDistance = sqrt(dx * dx + dy * dy)
-        
-        // 友军距离敌军的距离
-        let friendlyDx = friendly.postion.x - target.postion.x
-        let friendlyDy = friendly.postion.y - target.postion.y
-        let friendlyDistance = sqrt(friendlyDx * friendlyDx + friendlyDy * friendlyDy)
-        
-         return targetDistance <= firingRange
-            && targetDistance > unsafeRange
-            && friendlyDistance > unsafeRange //要小于安全距离，不然会影响友军
-    }
+//    func canSafelyEngage(ship target: Ship, friendly: Ship) -> Bool {
+//
+//        // 自己距离敌军的距离
+//        let dx = target.postion.x - postion.x
+//        let dy = target.postion.y - postion.y
+//        let targetDistance = sqrt(dx * dx + dy * dy)
+//
+//        // 友军距离敌军的距离
+//        let friendlyDx = friendly.postion.x - target.postion.x
+//        let friendlyDy = friendly.postion.y - target.postion.y
+//        let friendlyDistance = sqrt(friendlyDx * friendlyDx + friendlyDy * friendlyDy)
+//
+//         return targetDistance <= firingRange
+//            && targetDistance > unsafeRange
+//            && friendlyDistance > unsafeRange //要小于安全距离，不然会影响友军
+//    }
 }
 
 
+
+//MARK:  初步开始优化
 
 extension Postion {
     
@@ -154,6 +153,7 @@ func shift(_ region: @escaping Region,by offset: Postion) -> Region {
 let shifted = shift(circle(radius: 10), by: Postion(x: 5,y: 5))
 
 
+
 /// 通过反转一个区域以定义另一个区域，新产生的区域由原区域以外的所有点组成
 func invert(_ region: @escaping Region) -> Region {
     
@@ -179,10 +179,11 @@ func subtract(_ region: @escaping Region, from original:@escaping Region) -> Reg
 }
 
 
+///MRAK: 函数响应式开始
 
 extension Ship {
     
-    /// 使用函数响应式优化的canSafelyEngage
+    /// 使用函数响应式优化的canSafelyEngage - 与 74:出现命名冲突
     func canSafelyEngage(ship target: Ship, friendly: Ship) -> Bool {
         
         //攻击达到的所有区域
@@ -201,3 +202,11 @@ extension Ship {
         return resultRegion(target.postion)
     }
 }
+
+
+//其他解决方案
+//struct Region {
+//
+//    let lookup: (Postion) -> Bool
+//}
+
