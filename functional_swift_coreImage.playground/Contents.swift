@@ -3,6 +3,7 @@
 
 import UIKit
 import CoreImage
+import Vision
 
 typealias Filter = (CIImage) -> CIImage
 
@@ -151,7 +152,7 @@ func add2(_ x:Int) -> ((Int)-> Int){ //为add1的柯里化
 }
 
 
-func add3(_ x:Int) -> (Int) -> Int {
+func add3(_ x:Int) -> (Int) -> Int { //可不需要括号,但推荐第二种
     
     return { (y) in x+ y }
 }
@@ -160,3 +161,6 @@ func add3(_ x:Int) -> (Int) -> Int {
 let add1Result = add1(1, 2) // 3
 let add2Result = add2(1)(2) // 3
 let add3Result = add3(1)(2) // 3
+
+
+
