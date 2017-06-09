@@ -126,15 +126,41 @@ let blurAndOverlay = compose(filter: blur(radius: radius), with: overlay(color: 
 let result1 = blurAndOverlay(image!)
 
 //MARK: 自定义运算符
-//infix operation>>>
+infix operator >>>
 
-prefix func >>>(filter1: @escaping Filter,filter2: @escaping Filter) -> Filter {
+func >>>(filter1: @escaping Filter,filter2: @escaping Filter) -> Filter {
     
     return { image in filter2( filter1(image) ) }
 }
 
+
 let blurAndOverlay2 = blur(radius: radius) >>> overlay(color: color)
-let result2 = blurAndOverlay2(image)
+let result2 = blurAndOverlay2(image!)
+
+
+
+// -- 使用泛型定义
+infix operator >>>>
+
+func >>>><A,B,C> (filter1: @escaping (A) -> B, filter2: @escaping (B) -> C) -> (A) -> C {
+    
+    return { x in filter2( filter1(x) ) }
+}
+
+
+
+//定义一个泛型函数,进行相应的柯里化
+
+// (A, B) -> C 作为参数
+// 1:  总体返回值  (A) -> ((B) -> C)
+// 2:  1)的返回值   (B) -> (C)
+
+func curry<A,B,C>(_ f: @escaping (A,B) -> C ) -> (A) -> (B) -> C {
+    
+    return { x in { y in f(x,y) } }
+}
+
+
 
 
 
@@ -154,7 +180,7 @@ func add2(_ x:Int) -> ((Int)-> Int){ //为add1的柯里化
 
 func add3(_ x:Int) -> (Int) -> Int { //可不需要括号,但推荐第二种
     
-    return { (y) in x+ y }
+    return { (y) in x + y }
 }
 
 
