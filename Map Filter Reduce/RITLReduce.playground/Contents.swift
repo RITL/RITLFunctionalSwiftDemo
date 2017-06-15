@@ -19,7 +19,7 @@ let sum1 = sum(intergers: [1,2,3,4]) //10
 
 
 /// 计算所有整型值的乘积
-func product(intergers:[Int]) -> Int {
+func product(intergers:[Int]) -> Int { 
     
     var result: Int = 1
     

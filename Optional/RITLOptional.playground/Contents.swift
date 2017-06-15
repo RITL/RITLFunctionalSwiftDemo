@@ -36,9 +36,9 @@ if let _ = cities["Madrid"] {
 
 
 
-infix operator ???
+infix operator ???!
 
-func ???<T>(optional:T?, defaultValue:T) -> T {
+func ???!<T>(optional:T?, defaultValue:T) -> T {
     
     if let x = optional {
         
@@ -52,7 +52,7 @@ func ???<T>(optional:T?, defaultValue:T) -> T {
 
 let cache: Dictionary<String, Int> = ["test.swift": 1000]
 let defaultValue: Int = 2000 //本地读取
-let _ = cache["hello.swift"] ??? defaultValue
+let _ = cache["hello.swift"] ???! defaultValue
 let _ = cache["hello.swift"] != nil ? cache["hello.swift"] : defaultValue
 
 
@@ -72,7 +72,7 @@ func ??<T>(optional:T?, defaultValue:() -> T) -> T {
 
 /// Swift标准库中的 ?? 运算符 使用定义
 infix operator ????
-func ???<T>(optional: T?, defaultValue:@autoclosure() throws -> T) rethrows -> T {
+func ????<T>(optional: T?, defaultValue:@autoclosure() throws -> T) rethrows -> T {
     
     if let x = optional {
         
